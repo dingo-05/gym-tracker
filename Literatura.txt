@@ -1,0 +1,10 @@
+Database:
+	https://dbdiagram.io
+	Postgres
+		https://www.postgresql.org/docs/current/app-pgdump.html
+		https://www.postgresql.org/docs/current/sql-droptable.html
+Backend:
+	Flask:
+		https://flask.palletsprojects.com/en/stable/quickstart/
+	Flask-sqlalchemy:
+		https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/
