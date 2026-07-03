@@ -1,4 +1,3 @@
-# wsgiref import uklonjen jer koristimo standardni Flask server za razvoj
 
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
