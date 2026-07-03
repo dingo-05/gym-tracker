@@ -6,6 +6,8 @@ Database:
 Backend:
 	Flask:
 		https://flask.palletsprojects.com/en/stable/quickstart/
+		https://www.geeksforgeeks.org/python/flask-http-method/
+		https://www.digitalocean.com/community/tutorials/processing-incoming-request-data-in-flask
 	Flask-sqlalchemy:
 		https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/
 GitHub Actions:
