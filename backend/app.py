@@ -1,7 +1,6 @@
-
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, Response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
+
 
 app = Flask(__name__)
 
@@ -33,6 +32,8 @@ class Vezbe(db.Model):
     __tablename__ = 'vezbe'
     id = db.Column(db.Integer, primary_key=True)
     ime=db.Column(db.String, nullable=False)
+    def to_dict(self):
+        return {'id': self.id, 'ime': self.ime}
 class Misici(db.Model):
     __tablename__ = 'misici'
     id = db.Column(db.Integer, primary_key=True)
@@ -54,9 +55,35 @@ class MisiciVezbe(db.Model):
 @app.route('/')
 def hello_world():
     return 'Hello World!'
-@app.route('/trening')
+@app.route('/api/treninzi')
 def trening():
     treninzi=Trening.query.all()
     return jsonify([trening.to_dict() for trening in treninzi])
+@app.route('/api/vezbe', methods=['POST', 'GET'])
+def vezbe():
+    if request.method == 'GET':
+        vezbe=Vezbe.query.all()
+        return jsonify([vezba.to_dict()for vezba in vezbe])
+    else:
+        request_data = request.get_json()
+        naziv=request_data['naziv']
+        if naziv.strip()=='' or len(naziv.strip())>67:
+            return Response("{'Los naziv':'Naziv mora da bude ne prazan i da ima manje od 67 karaktera'}",status=400)
+        else:
+            maxid=Vezbe.query.order_by(Vezbe.id.desc()).first()
+            if maxid is None:
+                maxid=0
+            else:
+                maxid=maxid.id
+            nova_vezba=Vezbe(id=maxid+1, ime=naziv)
+            db.session.add(nova_vezba)
+            db.session.commit()
+            return Response("{'OK':'Uspesno dodata nova vezba'}",status=200)
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
