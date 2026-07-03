@@ -37,14 +37,14 @@ class Misici(db.Model):
     __tablename__ = 'misici'
     id = db.Column(db.Integer, primary_key=True)
     naziv=db.Column(db.String, nullable=False)
-class Trening_set(db.Model):
+class TreningSet(db.Model):
     __tablename__ = 'trening_set'
     redni_br = db.Column(db.Integer, primary_key=True)
     trening_id=db.Column(db.Integer, db.ForeignKey('trening.id'), primary_key=True)
     vezba_id=db.Column(db.Integer, db.ForeignKey('vezbe.id'), primary_key=True)
     kilaza=db.Column(db.Float)
     broj_ponavljanja=db.Column(db.Integer)
-class Misici_vezbe(db.Model):
+class MisiciVezbe(db.Model):
     __tablename__ = 'misici_vezbe'
     misici_id=db.Column(db.Integer, db.ForeignKey('misici.id'), primary_key=True)
     vezbe_id=db.Column(db.Integer, db.ForeignKey('vezbe.id'), primary_key=True)
