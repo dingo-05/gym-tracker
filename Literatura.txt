@@ -8,3 +8,7 @@ Backend:
 		https://flask.palletsprojects.com/en/stable/quickstart/
 	Flask-sqlalchemy:
 		https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/
+GitHub Actions:
+	https://docs.github.com/en/actions/tutorials/build-and-test-code/python
+	DiscordBot:
+		https://github.com/leandroruhl/commit-companion/issues/1#issuecomment-3428672334
