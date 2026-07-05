@@ -1,45 +1,60 @@
-def pokreni_automatski_seed(db, Misici, Vezbe, MisiciVezbe):
-    #Za misice
-    potrebni_misici=["Grudi", "Leđa", "Noge", "Ramena", "Biceps", "Triceps"]
-    for naziv_misica in potrebni_misici:
-        postoji = Misici.query.filter_by(naziv=naziv_misica).first()
-        if not postoji:
-            print(f"Mišić '{naziv_misica}' fali u bazi. Vraćam ga...")
-            novi_misic = Misici(naziv=naziv_misica)
-            db.session.add(novi_misic)
+def pokreni_automatski_seed(db, Vezbe):
 
-    db.session.commit()
+    pocetne_vezbe = [
 
-    #Za vezbe
-    potrebne_vezbe = ["Bench Press", "Razvlačenje bučicama", "Zgibovi", "Mrtvo dizanje", "Čučanj"]
-    for ime_vezbe in potrebne_vezbe:
-        postoji = Vezbe.query.filter_by(ime=ime_vezbe).first()
-        if not postoji:
-            print(f"Vežba '{ime_vezbe}' fali u bazi. Vraćam ga...")
-            nova_vezba = Vezbe(ime=ime_vezbe)
-            db.session.add(nova_vezba)
+        "Overhead Barbell Press",
+        "Dumbbell Shoulder Press",
+        "Arnold Press",
+        "Lateral Raise",
+        "Rear Delt Fly",
 
-    db.session.commit()
 
-    grudi = Misici.query.filter_by(naziv="Grudi").first()
-    ledja = Misici.query.filter_by(naziv="Leđa").first()
-    bench = Vezbe.query.filter_by(ime="Bench Press").first()
-    razvlacenje = Vezbe.query.filter_by(ime="Razvlačenje bučicama").first()
-    zgibovi = Vezbe.query.filter_by(ime="Zgibovi").first()
-    mrtvo = Vezbe.query.filter_by(ime="Mrtvo dizanje").first()
+        "Bench Press",
+        "Incline Dumbbell Press",
+        "Decline Bench Press",
+        "Chest Fly",
+        "Push-ups",
 
-    potrebne_veze = [
-        {"misici_id": grudi.id, "vezbe_id": bench.id},
-        {"misici_id": grudi.id, "vezbe_id": razvlacenje.id},
-        {"misici_id": ledja.id, "vezbe_id": zgibovi.id},
-        {"misici_id": ledja.id, "vezbe_id": mrtvo.id}
+
+        "Pull-ups",
+        "Lat Pulldown",
+        "Barbell Row",
+        "Seated Cable Row",
+        "Hyperextension",
+
+
+        "Barbell Biceps Curl",
+        "Dumbbell Hammer Curl",
+        "Preacher Curl",
+        "Triceps Pushdown",
+        "Skull Crusher",
+        "Dips",
+
+
+        "Plank",
+        "Crunches",
+        "Hanging Leg Raise",
+
+
+        "Squat",
+        "Leg Press",
+        "Hack Squat",
+        "Romanian Deadlift",
+        "Leg Curl",
+        "Calf Raise"
     ]
 
-    for veza in potrebne_veze:
-        postoji = MisiciVezbe.query.filter_by(misici_id=veza["misici_id"], vezbe_id=veza["vezbe_id"]).first()
-        if not postoji:
-            print(f"🔗 Veza između mišića ID:{veza['misici_id']} i vežbe ID:{veza['vezbe_id']} fali. Vraćam je...")
-            nova_veza = MisiciVezbe(misici_id=veza["misici_id"], vezbe_id=veza["vezbe_id"])
-            db.session.add(nova_veza)
+    proizvedene_promene = False
+    for ime_vezbe in pocetne_vezbe:
 
-    db.session.commit()
+        postoji = Vezbe.query.filter_by(ime=ime_vezbe).first()
+        if not postoji:
+            nova_vezba = Vezbe(ime=ime_vezbe)
+            db.session.add(nova_vezba)
+            proizvedene_promene = True
+
+    if proizvedene_promene:
+        db.session.commit()
+        print("Uspešno unete vežbe u bazu")
+    else:
+        print("Vežbe su uspešno učitane")
