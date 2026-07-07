@@ -23,8 +23,8 @@ jobs:
           file: ./backend/Dockerfile
           push: false
           tags: gym-tracker-backend:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -42,5 +42,5 @@ jobs:
           file: ./frontend/Dockerfile
           push: false
           tags: gym-tracker-frontend:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
